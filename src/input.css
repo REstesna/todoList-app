@@ -1,0 +1,160 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+    font-family: "kanit-extera-light";
+    src: url(../font/Kanit-ExtraLight.ttf);
+}
+@font-face {
+    font-family: "kanit-regular";
+    src: url(../font/Kanit-Regular.ttf);
+}
+/* @font-face {
+    font-family: "kanit-bold";
+    src: url(../font/Kanit-bold.ttf);
+} */
+@font-face {
+    font-family: "kanit-bold";
+    src: url(../font/Kanit-Medium.ttf);
+}
+@font-face {
+    font-family: "kanit-black";
+    src: url(../font/Kanit-Black.ttf);
+}
+
+
+:root{
+    /* --main-color: #6C63FF; */
+    --main-color: #006aff;
+    
+    --main-black-color: #252525;
+    --main-white-color: #F7F7F7;
+
+    --main-placeholder-color: #C3C1E5;
+    --icon-color: #cdcdcd;
+    --static-white-color: #F7F7F7;
+    --static-black-color: #252525;
+    --static-green-color: #76FF03;
+    --static-red-color: #F44336;
+}
+
+@theme{
+    --font-kanit-extera-light: "kanit-extera-light";
+    --font-kanit-regular: "kanit-regular";
+    --font-kanit-bold: "kanit-bold";
+    --font-kanit-black: "kanit-black";
+    /* --main-border-radius: 0.375rem; */
+    --main-border-radius: 0.5rem;
+
+}
+
+*{
+    @apply transition-all! duration-200;
+}
+
+
+
+button {
+    @apply outline-0
+}
+
+.container{
+    @apply px-2 mx-auto md:max-w-5xl
+}
+
+.drop-down__parent{
+    @apply h-full bg-[var(--main-color)] relative px-4 py-2 rounded-[var(--main-border-radius)] cursor-pointer  ;
+}
+.drop-down__active{
+    @apply flex justify-between gap-6 items-center text-nowrap text-[var(--static-white-color)] font-kanit-regular;
+}
+.drop-down__option-parent {
+    @apply absolute  left-0 top-11  bg-[var(--main-white-color)]  border-[var(--main-color)] border-1 w-full rounded-[var(--main-border-radius)] overflow-hidden transition-transform origin-top scale-y-1 duration-300 opacity-0 invisible z-40;
+}
+.drop-down__option{
+    @apply text-nowrap px-1 py-1 text-left my-1 cursor-pointer hover:bg-[var(--main-color)]/10 text-[var(--main-color)]  transition-all duration-200 text-sm flex justify-between items-center gap-3 ;
+}
+
+
+.circle{
+    @apply block w-1.5 h-1.5 bg-[var(--static-white-color)] rounded-full pointer-events-none;
+}
+
+/* ****** class for add dropdowns ****** */
+.show__drop-down__option-parent{
+    @apply opacity-100 visible scale-y-100;
+}
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.hide__modal{
+    @apply *:translate-y-[-550px] opacity-0 invisible
+}
+
+/* ///////////////////////////  */
+.error {
+    @apply  border-red-600!;
+}
+
+.show-errors-by-span {
+    @apply block visible opacity-100;
+}
+
+/* //////////////////////////////// */
+
+.checked__todo {
+    @apply bg-[var(--main-color)];
+}
+
+.checked__todo svg {
+    @apply opacity-100;
+}
+
+
+/* /////////////////////////////////////////////// */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* /////////////////////////////////////////////// */
+
+.basic_hover{
+    @apply hover:rounded-tr-2xl hover:rounded-bl-2xl;
+}
+
+/* loader  */
+
+.loader {
+  width: 55px;
+  aspect-ratio: 1;
+  --g1:conic-gradient(from  90deg at top    3px left  3px,#0000 90deg,#fff 0);
+  --g2:conic-gradient(from -90deg at bottom 3px right 3px,#0000 90deg,#fff 0);
+  background:
+    var(--g1),var(--g1),var(--g1),var(--g1), 
+    var(--g2),var(--g2),var(--g2),var(--g2);
+  background-position: 0 0,100% 0,100% 100%,0 100%;
+  background-size: 25px 25px;
+  background-repeat: no-repeat;
+  animation: l11 1.5s infinite;
+}
+@keyframes l11 {
+  0%   {background-size:35px 15px,15px 15px,15px 35px,35px 35px}
+  25%  {background-size:35px 35px,15px 35px,15px 15px,35px 15px}
+  50%  {background-size:15px 35px,35px 35px,35px 15px,15px 15px}
+  75%  {background-size:15px 15px,35px 15px,35px 35px,15px 35px}
+  100% {background-size:35px 15px,15px 15px,15px 35px,35px 35px}
+}
