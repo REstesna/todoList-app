@@ -63,7 +63,7 @@ window.addEventListener("load", () => {
     addTodosToDom(getLocalStorage("state").todos);
   }
 
-  showActiveSortItemHandler();
+  // showActiveSortItemHandler();
   showActiveFilterItemHandler();
 });
 
@@ -120,6 +120,11 @@ function makeNewTodoObj(title, description, difflevel) {
 
   localTodos.unshift(newTodoObj);
   setLocalStorage("state", localState);
+
+    sortingBy = 'last';
+  filteringBy = 'all';
+  showActiveSortItemHandler();
+  showActiveFilterItemHandler();
 
   addTodosToDom(localTodos);
 }
@@ -381,10 +386,7 @@ function addTodosToDom(todos) {
   }
 
 
-  sortingBy = 'last';
-  filteringBy = 'all';
-  showActiveSortItemHandler();
-  showActiveFilterItemHandler();
+
 
 }
 
@@ -444,6 +446,10 @@ function removeItemFromState(id) {
     return item.id == id;
   });
 
+  if (localTodos.length === 1) {
+    addTodosToDom([])
+  }
+
 
   localTodos.splice(mainTodoIndex, 1);
   
@@ -457,6 +463,7 @@ function removeItemFromState(id) {
 /////////////////////////////////////////
 
 function getDeleteConfirm(id, elem) {
+
   const deleteModalElem = $.querySelector("#confirm-delete-todo");
   const cancelDeleteTodo = $.querySelector("#cancel__delete-todo");
   const completeDeleteTodo = $.querySelector("#complete_delte-todo");
@@ -471,6 +478,7 @@ function getDeleteConfirm(id, elem) {
   completeDeleteTodo.addEventListener("click", () => {
     deleteModalElem.classList.add("hide__modal");
     elem.remove();
+  
     removeItemFromState(id);
   });
 }
@@ -620,9 +628,10 @@ function sortTodosHandler(e ) {
 
   if (sortBy === 'last' && sortingBy !== 'last') {
     sortingBy = 'last';
-    showActiveSortItemHandler();
     // const localState = getLocalStorage('state');
     // const localTodos = localState.todos;
+
+    
 
     showingTodos.sort((a, b) => {
       return new Date(b.timeAdded) - new Date (a.timeAdded);
@@ -634,10 +643,11 @@ function sortTodosHandler(e ) {
 
     
   }
+
+
   if (sortBy === 'hard' && sortingBy !== 'hard') {
 
     sortingBy = 'hard';
-    showActiveSortItemHandler();
     // const localState = getLocalStorage('state');
     // const localTodos = localState.todos;
     
@@ -652,7 +662,6 @@ function sortTodosHandler(e ) {
   }
   if (sortBy === 'easy' && sortingBy !== 'easy') {
     sortingBy = 'easy';
-    showActiveSortItemHandler();
 
     // const localState = getLocalStorage('state');
     // const localTodos = localState.todos;
@@ -664,9 +673,9 @@ function sortTodosHandler(e ) {
     });
     
     addTodosToDom(showingTodos);
-    
   }
   
+    showActiveSortItemHandler();
   
   
 }
@@ -683,6 +692,8 @@ function showActiveSortItemHandler() {
       
     } else if (sortItem.querySelector('svg') && sortingBy !== sortItem.dataset.sortby) {
       sortItem.querySelector('svg').remove();
+
+      
     }
   })
 }

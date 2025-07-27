@@ -318,16 +318,27 @@ function getUserNameHandler () {
 
 function showInputLimitHandler() {
   enterNameSpanElem.innerHTML = 20 - enterNameInputElem.value.length;
+  $.querySelector('#enter-name-error-span').classList.remove('block');
+  $.querySelector('#enter-name-error-span').classList.add('hidden');
 }
 
 ////
 function applyEnterNameHandler() {
+
+  if (enterNameInputElem.value.trim()) {
 
   const localState = getLocalStorage('state');
   localState.userName = enterNameInputElem.value;
   setLocalStorage('state', localState);
   enterNameModalElem.classList.add('hide__modal')
   topUserNameSpanElem.innerHTML = enterNameInputElem.value;
+
+  } else {
+    $.querySelector('#enter-name-error-span').classList.remove('hidden')
+    $.querySelector('#enter-name-error-span').classList.add('block')
+  }
+
+ 
   
 }
 

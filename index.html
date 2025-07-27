@@ -33,7 +33,7 @@
     <header class="container">
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ title ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <h1 id="head__tite" class="font-kanit-regular text-[var(--main-black-color)] text-center mt-8 text-3xl">Hi <span id="user-name-top-span"
-                class="text-[var(--main-color)]">---</span>,
+                class="text-[var(--main-color)]">!!!</span>,
             welcome to your todolist!</h1>
     </header>
 
@@ -556,9 +556,11 @@
 
             <!-- modal input  -->
             <div class="w-full flex justify-around items-center mt-4 border-2 border-[var(--main-color)] rounded-[var(--main-border-radius)] px-2 h-8">
-                <input id="enter-name-input" placeholder="input your name..." maxlength="20" class="w-full font-kanit-regular outline-0 " type="text">
+                <input  id="enter-name-input" placeholder="input your name..." maxlength="20" class="w-full text-[var(--main-black-color)] font-kanit-regular outline-0 " type="text">
                 <span id="enter-name-limit-span" class="text-[var(--main-color)] border-l pl-2">20</span>
             </div>
+
+            <div id="enter-name-error-span" class="text-center hidden mt-1 bg-red-500 text-white rounded-[var(--main-border-radius)] text-sm py-0.5 font-kanit-extera-light ">Please enter your name first.</div>
 
             <!-- modal actions  -->
             <div class="w-full flex justify-between items-center mt-4">
