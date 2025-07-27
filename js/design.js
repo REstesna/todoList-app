@@ -433,9 +433,4 @@ closeAboutModalBtn.addEventListener('click', () => {
 openAboutModalBtn.addEventListener('click', () => {
   $.querySelector('#about-modal').classList.remove('hide__modal');
 
-});
-
-$.querySelector('#enter-name-input').addEventListener('focus', e => {
-
-  scrollIntoViewHandler(e.target)
 })

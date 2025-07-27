@@ -151,7 +151,7 @@ function addTodosToDom(todos) {
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                                 </svg>
                             </div>
-                            <h2 class="font-kanit-regular text-xl capitalize text-[var(--main-black-color)]"> ${todo.title} </h2>
+                            <h2 class="font-kanit-regular text-xl capitalize text-[var(--main-black-color)] ${todo.isComplete ? 'line-through' : ''} ${todo.isComplete ? 'text-[var(--main-black-color)]/50' : ''} "> ${todo.title} </h2>
                         </div>
                         <!-- todo's actions -->
                         <div class="flex justify-center items-center gap-2">
@@ -500,10 +500,12 @@ function editTodoByAddTodoModalHandler(target) {
 
     $.querySelector('#edti-input-title__limit').innerHTML = 30 - target.querySelector('h2').innerHTML.length
 
-    editTodoModalInputElem.value = target.querySelector('h2').innerHTML;
+    editTodoModalInputElem.value = target.querySelector('h2').innerHTML.trim();
+
     
-    if ( editTodoModalDescription.value ) {
-        editTodoModalDescription.value = target.querySelector('p').innerHTML;
+    
+    if ( target.querySelector('p').innerHTML) {
+        editTodoModalDescription.value = target.querySelector('p').innerHTML.trim();
       } else {
         editTodoModalDescription.value = '';
         
@@ -759,12 +761,15 @@ function checkboxItemHandler( e ) {
     const mainCheckBoxElem = e.target.closest('div.checkbox_item');
     
     if (mainCheckBoxElem) {
-      const todoId = mainCheckBoxElem.closest('li#todo').dataset.id;
-     
       
-
+      const todoId = mainCheckBoxElem.closest('li#todo').dataset.id;
       mainCheckBoxElem.classList.toggle('checked__todo');
 
+      const todo = mainCheckBoxElem.closest('li#todo')
+
+      todo.querySelector('h2').classList.toggle('line-through');
+      todo.querySelector('h2').classList.toggle('text-[var(--main-black-color)]/50');
+      
 
       checkAndUnCheckTodo(todoId);  
     }
@@ -809,7 +814,7 @@ function closeExportModalHandler() {
 
   if ( selectedExportOption ) {
     selectedExportOption.classList.remove('bg-[var(--main-color)]!');
-    selectedExportOption.classList.remove('text-[var(--static-white-color)]!');
+    selectedExportOption.classList.remove('text-[var(--main-white-color)]!');
     selectedExportOption.id = '';
   };
   
@@ -864,15 +869,14 @@ function completeExportHandler() {
     let y = 10;
 
     localTodos.forEach(todo => {
-      doc.text(`Title: ${todo.title} \n description: ${todo.description} \n difficulty level: ${todo.difflevel} \n is complete? : ${todo.isComplete} \n date added: ${todo.timeAdded}`, 10 , y);
-       y += 50;
+      doc.text(`Title: ${todo.title} --- description: ${todo.description} --- difficulty level: ${todo.difflevel} --- is complete? : ${todo.isComplete} --- date added: ${todo.timeAdded}`, 10 , y);
+       y += 10;
     });
 
     doc.save()
 
   }
-
-  closeExportModalHandler()
+  
 }
 
 ////////////////////////////////////////
