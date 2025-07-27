@@ -503,6 +503,8 @@ function editTodoByAddTodoModalHandler(target) {
     editTodoModalInputElem.value = target.querySelector('h2').innerHTML.trim();
 
     
+    console.log(Boolean(target.querySelector('p').innerHTML));
+    
     
     if ( target.querySelector('p').innerHTML) {
         editTodoModalDescription.value = target.querySelector('p').innerHTML.trim();
