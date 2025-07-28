@@ -399,6 +399,7 @@ todosContainerElem.addEventListener("click", (e) => {
     
     // delet task by click on each trash icon in todo
   function deleteTodoByClickOnTrashIcon() {
+
     if ( e.target.closest("svg#remove-todo-button") || e.target.closest("li#delete-todo-optionbar")) {
 
       const mainTarget = e.target.closest("li#todo");
@@ -440,23 +441,29 @@ todosContainerElem.addEventListener("click", (e) => {
 
 function removeItemFromState(id) {
 
-  const localState = getLocalStorage('state')
-  const localTodos = localState.todos;
-  const mainTodoIndex = localTodos.findIndex((item) => {
-    return item.id == id;
-  });
+  const localState = getLocalStorage('state');
+  // let localTodos = localState.todos;
+  // const mainTodoIndex = localTodos.findIndex((item) => {
+  //   return item.id == id;
+  // });
 
-  if (localTodos.length === 1) {
+ 
+
+  const filteredTodos = localState.todos.filter(todo => {
+    return todo.id != id
+  });
+  console.log(filteredTodos);
+  
+
+  // localTodos.splice(mainTodoIndex, 1);
+  
+   if (filteredTodos.length === 0) {
     addTodosToDom([])
   }
 
-
-  localTodos.splice(mainTodoIndex, 1);
-  
-
-
-  state.todos = localTodos;
-  setLocalStorage("state", state);
+  // state.todos = localTodos;
+  localState.todos = filteredTodos;
+  setLocalStorage("state", localState);
 
 }
 
@@ -468,17 +475,19 @@ function getDeleteConfirm(id, elem) {
   const cancelDeleteTodo = $.querySelector("#cancel__delete-todo");
   const completeDeleteTodo = $.querySelector("#complete_delte-todo");
 
+
   deleteModalElem.classList.remove("hide__modal");
 
   cancelDeleteTodo.addEventListener("click", () => {
 
-
     deleteModalElem.classList.add("hide__modal");
+
   });
+
   completeDeleteTodo.addEventListener("click", () => {
     deleteModalElem.classList.add("hide__modal");
     elem.remove();
-  
+    
     removeItemFromState(id);
   });
 }
