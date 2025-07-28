@@ -452,7 +452,6 @@ function removeItemFromState(id) {
   const filteredTodos = localState.todos.filter(todo => {
     return todo.id != id
   });
-  console.log(filteredTodos);
   
 
   // localTodos.splice(mainTodoIndex, 1);
